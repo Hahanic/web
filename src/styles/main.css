@@ -1,0 +1,110 @@
+:root {
+  /* // 默认亮色主题 */
+  --primary-text: #202020;
+  --gray-text-1: #5b5b5b;
+  --gray-text-2: #949494;
+  --gray-text-3: #ffffff;
+  --header-bg: rgba(255, 255, 255, 0.8);
+  --drawer-bg: rgba(255, 255, 255, 0.8);
+  --drawer-bottom-bg: rgba(255, 255, 255, 0.7);
+  --img-view-bg: rgba(255, 255, 255, 0.7);
+  --drawer-btn-text: #fff;
+  --label-bg: #ebebeb;
+
+  /* // 通用样式 */
+  --primary-color: #3b73f0;
+  --tr: all 0.3s;
+  --like-color: #f67770;
+  --warning-color: #f67770;
+}
+
+/* // 暗色主题 */
+/* html[data-theme='dark'] {
+  --primary-text: #ffffffe6;
+  --gray-text-1: #fafafa;
+  --gray-text-2: #b9b1b1;
+  --gray-text-3: #3a3838;
+  --header-bg: rgb(23 31 52 / 80%);
+  --drawer-bg: rgb(23 31 52 / 80%);
+  --drawer-bottom-bg: rgba(23, 31, 52, 0.8);
+  --img-view-bg: #242d43cc;
+  --drawer-btn-text: #202020;
+  --label-bg: #6f7b9bcc;
+} */
+
+
+/* * {
+  overflow: hidden;
+} */
+
+html {
+  scroll-behavior: smooth;
+  background-color: #000000;
+  user-select: none;
+
+}
+body {
+  padding: 0px;
+  margin: 0px;
+  line-height: 1.5;
+  color: #202020;
+  font-size: 18px;
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* 整个滚动条 */
+::-webkit-scrollbar {
+  width: 8px; /* 垂直滚动条宽度 */
+  height: 8px; /* 水平滚动条高度 */
+}
+
+/* 滚动条轨道（背景） */
+::-webkit-scrollbar-track {
+  background: #52356d;
+  border-radius: 50%;
+}
+
+/* 滚动条滑块 */
+::-webkit-scrollbar-thumb {
+  background-color: #88a3e7;
+  border-radius: 50%;
+
+  /* border: 2px solid #f0f0f0; 可用于内边距效果 */
+}
+
+/* 鼠标悬停在滑块上时 */
+::-webkit-scrollbar-thumb:hover {
+  background-color: #ab81da;
+}
+
+div,
+img,
+button,
+textarea,
+input {
+  box-sizing: border-box;
+}
+p {
+  padding: 0px;
+  margin: 0px;
+}
+li {
+  list-style: none;
+}
+img {
+  padding: 0px;
+  margin: 0px;
+  display: block;
+}
+a {
+  text-decoration: none;
+  &:hover {
+    text-decoration: none;
+  }
+}
+input,
+textarea {
+  outline: none;
+}

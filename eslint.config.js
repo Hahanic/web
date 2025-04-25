@@ -23,4 +23,11 @@ export default defineConfig([
   js.configs.recommended,
   ...pluginVue.configs['flat/essential'],
   skipFormatting,
+
+  {
+    rules: {
+      'vue/multi-word-component-names': 'off', // 禁用多词组件名称规则
+    },
+  },
 ])
+
