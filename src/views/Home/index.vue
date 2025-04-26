@@ -1,6 +1,6 @@
 <template>
   <TopBar></TopBar>
-  <img src="@/assets/Gif3.gif" />
+  <video src="@/assets/gif3.webm" autoplay loop muted playsinline />
   <RouterView></RouterView>
   <FootBar></FootBar>
 </template>
@@ -11,9 +11,9 @@ import FootBar from './components/FootBar.vue';
 </script>
 
 <style scoped>
-img {
+video {
   /* backdrop-filter: blur(50px); */
-  filter: blur(10px);
+  filter: blur(2px);
   position: fixed;
   top: 0;
   left: 0;

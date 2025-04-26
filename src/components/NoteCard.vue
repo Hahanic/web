@@ -1,38 +1,45 @@
 <template>
-  <div class="node-card" :style="{width: `${width}px`, background: background}">
+  <div class="note-card" :style="{width: `${width}px`, background: background}">
     <div class="card-top">
-      <p class="card-time">2022.07.12</p>
-      <p class="card-label">具有</p>
+      <p class="card-time">{{ item.moment }}</p>
+      <p class="card-label">{{ label[item.type][item.label] }}</p>
     </div>
-    <p class="card-message">1234567890123456789012345678901234567890文本文本文本文本文本文本文本文本文本文本文本文本文本本文本文本文本文本文本文本文本文本文本文本文本文本文文本文本文本文本文本文本文本文本文本文本文1234567890123456789012345678901234567890</p>
+    <p class="card-message">{{ item.message }}</p>
     <div :style="{width: `${width - 45}px`}" class="card-foot">
       <div class="foot-left">
         <span class="card-like"></span>
-        <span>1</span>
-        <span class="card-like"></span>
-        <span>1</span>
+        <span>{{ item.like }}</span>
+        <span class="card-liuyan"></span>
+        <span>{{ item.comment }}</span>
       </div>
-      <span class="foot-right">亦刻</span>
+      <span class="foot-right">{{ item.name }}</span>
     </div>
   </div>
 
 </template>
 
 <script setup>
+
 defineProps({
   width: {
     default: 288
   },
   background: {
     default: 'rgba(252,175,162,0.3)'
+  },
+  item: {
+    type: Array
+  },
+  label: {
+    type: Array
   }
 })
 </script>
 
 <style scope>
-.node-card {
+.note-card {
   height: 240px;
-  background: rgba(252,175,162,0.3);
+  margin-top: 20px;
   padding: 10px 20px;
   position: relative;
   border-radius: 15px;
@@ -45,7 +52,6 @@ defineProps({
   margin-bottom: 8px;
 }
 .card-message {
-  user-select: text;
   cursor: pointer;
   overflow: hidden;
   word-break: break-all;
@@ -53,6 +59,7 @@ defineProps({
   line-height: 22px;
   text-overflow: ellipsis;
   display: -webkit-box;
+  line-clamp: 7;
   -webkit-line-clamp: 7;
   -webkit-box-orient: vertical;
 }
@@ -70,6 +77,16 @@ defineProps({
   background-repeat: no-repeat;
   cursor: pointer;
   filter: opacity(0.4);
+}
+.card-liuyan {
+  display: inline-block;
+  width: 1.2rem;
+  height: 1.2rem;
+  background-image: url('../assets/icons/liuyan.svg');
+  background-size: contain;
+  background-repeat: no-repeat;
+  cursor: pointer;
+  filter: opacity(0.6);
 }
 .card-foot {
   display: flex;
