@@ -56,14 +56,14 @@ body {
 
 /* 整个滚动条 */
 ::-webkit-scrollbar {
-  width: 8px; /* 垂直滚动条宽度 */
+  width: 4px; /* 垂直滚动条宽度 */
   height: 8px; /* 水平滚动条高度 */
 }
 
 /* 滚动条轨道（背景） */
 ::-webkit-scrollbar-track {
   background: #52356d;
-  border-radius: 50%;
+  border-radius: 50px;
 }
 
 /* 滚动条滑块 */
@@ -86,7 +86,7 @@ textarea,
 input {
   box-sizing: border-box;
 }
-p {
+p, ul, li {
   padding: 0px;
   margin: 0px;
 }
@@ -100,9 +100,6 @@ img {
 }
 a {
   text-decoration: none;
-  &:hover {
-    text-decoration: none;
-  }
 }
 input,
 textarea {

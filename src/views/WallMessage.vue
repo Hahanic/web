@@ -1,17 +1,26 @@
 <template>
   <div class="wall-message">
+    <!-- 标题 -->
     <p class="title">{{ wallType[id].name }}</p>
+    <!-- 短语 -->
     <p class="slogan">{{ wallType[id].slogan }}</p>
+    <!-- 12个标签 -->
     <div class="label">
-      <p :class="{lbSelected: nlabel == -1}" @click="selectnote(-1)">全部</p>
+      <!-- <p :class="{lbSelected: nlabel == -1}" @click="selectnote(-1)">全部</p> -->
       <p :class="{lbSelected: nlabel == index}" v-for="(e, index) in label[id]" :key="index" @click="selectnote(index)">{{ e }}</p>
     </div>
+    <!-- 卡片整体 -->
     <div class="cards">
-      <noteCard v-for="(e, index) in mockData.data" :key="index" :item="e" :label="label" :background="cardColor[e.imgURL]"></noteCard>
+      <noteCard @click="() => isModal = true" v-for="(e, index) in mockData.data" :key="index" :item="e" :label="label" :background="cardColor[e.imgURL]"></noteCard>
     </div>
-    <div class="add" :style="{ bottom: addBottom + 'px' }">
+    <!-- add按钮 -->
+    <div @click="() => isModal = true" class="add" :style="{ bottom: addBottom + 'px' }">
       <img src="../assets/icons/tianjia.svg">
     </div>
+    <!-- 弹窗 -->
+    <YkModal @close="() => isModal = false" :isModal="isModal">
+      <NewCard :labels="label" :id="id"></NewCard>
+    </YkModal>
   </div>
 
 </template>
@@ -20,12 +29,14 @@
 import { onUnmounted, ref } from 'vue';
 import { wallType, label, cardColor } from '@/utils/data';
 import noteCard from '@/components/noteCard.vue';
+import YkModal from '@/components/YkModal.vue';
+import NewCard from '@/components/NewCard.vue';
 import mockData from '@/Mock/index.js';
 //id表示 留言墙 or 照片墙
 const id = ref(0);
 
 //点击label
-const nlabel = ref(-1)
+const nlabel = ref(0)
 const selectnote = function(e) {
   nlabel.value = e
 }
@@ -51,6 +62,9 @@ window.addEventListener('scroll', addBtnScroll)
 onUnmounted(() => {
   window.removeEventListener('scroll', addBtnScroll)
 })
+
+//控制显示和隐藏
+const isModal = ref(false)
 </script>
 
 <style scope>
