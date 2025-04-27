@@ -2,11 +2,11 @@
   <div class="top-bar">
     <div class="logo">
       <img src="@/assets/images/logo.svg" class="logo-img">
-      <p class="logo-name">一刻时光</p>
+      <p class="logo-name">WCORP</p>
     </div>
     <div class="menu">
       <YkButton :size="'base'" class="message-wall">留言墙</YkButton>
-      <YkButton :size="'base'">照片墙</YkButton>
+      <YkButton :size="'base'">加入我们</YkButton>
     </div>
     <div class="user">
       <div class="user-head"></div>

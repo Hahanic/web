@@ -11,15 +11,16 @@
     </div>
     <!-- 卡片整体 -->
     <div class="cards">
-      <noteCard @click="() => isModal = true" v-for="(e, index) in mockData.data" :key="index" :item="e" :label="label" :background="cardColor[e.imgURL]"></noteCard>
+      <noteCard @click="selectcard(index)" v-for="(e, index) in mockData.data" :key="index" :item="e" :label="label" :background="cardColor[e.imgURL]" :class="{cardSelected: nCard == index }"></noteCard>
     </div>
     <!-- add按钮 -->
-    <div @click="() => isModal = true" class="add" :style="{ bottom: addBottom + 'px' }">
+    <div @click="addCard" class="add" :style="{ bottom: addBottom + 'px' }">
       <img src="../assets/icons/tianjia.svg">
     </div>
     <!-- 弹窗 -->
-    <YkModal @close="() => isModal = false" :isModal="isModal">
-      <NewCard :labels="label" :id="id"></NewCard>
+    <YkModal @close="changeModal" :isModal="isModal" :title="title">
+      <NewCard :labels="label" :id="id" v-if="nCard == -1"></NewCard>
+      <CardDetail v-if="nCard != -1" :label="label" :card="mockData.data[nCard]" :background="cardColor[nCard]"></CardDetail>
     </YkModal>
   </div>
 
@@ -28,10 +29,19 @@
 <script setup>
 import { onUnmounted, ref } from 'vue';
 import { wallType, label, cardColor } from '@/utils/data';
-import noteCard from '@/components/noteCard.vue';
+import noteCard from '@/components/NoteCard.vue';
 import YkModal from '@/components/YkModal.vue';
 import NewCard from '@/components/NewCard.vue';
+import CardDetail from '@/components/CardDetail.vue';
 import mockData from '@/Mock/index.js';
+
+//弹窗类型
+const title = ref('写留言')
+//弹窗关闭按钮
+const changeModal = function() {
+  isModal.value = false
+  nCard.value = -1
+}
 //id表示 留言墙 or 照片墙
 const id = ref(0);
 
@@ -65,6 +75,26 @@ onUnmounted(() => {
 
 //控制显示和隐藏
 const isModal = ref(false)
+
+//点击卡片
+const nCard = ref(-1)
+const selectcard = function(e) {
+  if(nCard.value == e) {
+    nCard.value = -1
+    isModal.value = false
+  } else {
+    nCard.value = e
+    isModal.value = true
+    title.value = '详情'
+  }
+}
+//新建card按钮
+const addCard = function() {
+  nCard.value = -1
+  isModal.value = true
+  title.value = '写留言'
+
+}
 </script>
 
 <style scope>
@@ -112,5 +142,9 @@ const isModal = ref(false)
   position: fixed;
   right: 30px;
   display: flex;
+}
+.cardSelected {
+  box-shadow: 0 2px 0px rgb(19, 255, 78);
+
 }
 </style>

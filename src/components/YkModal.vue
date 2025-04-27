@@ -1,8 +1,8 @@
 <template>
   <transition name="modal">
-    <div class="yk-modal" v-show="isModal">
+    <div class="yk-modal" v-if="isModal">
       <div class="yk-modal-head">
-        <p class="modal-name">写留言</p>
+        <p class="modal-name">{{ title }}</p>
         <span class="modal-x" @click="() => emit('close')"></span>
       </div>
       <div class="yk-modal-main">
@@ -17,6 +17,9 @@ defineProps({
   isModal: {
     type: Boolean,
     default: true
+  },
+  title: {
+    type: String
   }
 })
 
@@ -38,7 +41,7 @@ const emit = defineEmits(['close'])
 .yk-modal {
   color: black;
   width: 362px;
-  height: 100%;
+  height: 100vh;
   background-color: rgba(255,255,255,0.8);
   backdrop-filter: blur(10px);
   position: fixed;
@@ -62,5 +65,10 @@ const emit = defineEmits(['close'])
   background-repeat: no-repeat;
   cursor: pointer;
 }
-
+.yk-modal {
+  overflow-y: scroll;
+}
+.yk-modal::-webkit-scrollbar {
+  display: none;
+}
 </style>
