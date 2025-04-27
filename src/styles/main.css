@@ -33,10 +33,6 @@
 } */
 
 
-/* * {
-  overflow: hidden;
-} */
-
 html {
   scroll-behavior: smooth;
   background-color: #000000;
@@ -54,29 +50,8 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* 整个滚动条 */
 ::-webkit-scrollbar {
-  width: 4px; /* 垂直滚动条宽度 */
-  height: 8px; /* 水平滚动条高度 */
-}
-
-/* 滚动条轨道（背景） */
-::-webkit-scrollbar-track {
-  background: #52356d;
-  border-radius: 50px;
-}
-
-/* 滚动条滑块 */
-::-webkit-scrollbar-thumb {
-  background-color: #88a3e7;
-  border-radius: 50%;
-
-  /* border: 2px solid #f0f0f0; 可用于内边距效果 */
-}
-
-/* 鼠标悬停在滑块上时 */
-::-webkit-scrollbar-thumb:hover {
-  background-color: #ab81da;
+  display: none;
 }
 
 div,

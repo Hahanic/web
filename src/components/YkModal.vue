@@ -65,7 +65,7 @@ const emit = defineEmits(['close'])
   background-repeat: no-repeat;
   cursor: pointer;
 }
-.yk-modal {
+.yk-modal, .yk-modal-main {
   overflow-y: scroll;
 }
 .yk-modal::-webkit-scrollbar {

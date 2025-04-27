@@ -14,6 +14,7 @@ export const label = [
   ['w','a','s','d','s','d','a','d','a','w','g']
 ]
 
+//主页的帖子，详情页的帖子，详情页评论的头像，写留言的颜色
 export const cardColor = [
   'linear-gradient(180deg, rgba(255,169,217,0.1) 0%, rgba(232,61,61,0.4) 100%)',
   'linear-gradient(180deg, rgba(255,167,235,0.1) 0%, rgba(240,38,168,0.4) 100%)',

@@ -20,7 +20,7 @@
     <!-- 弹窗 -->
     <YkModal @close="changeModal" :isModal="isModal" :title="title">
       <NewCard :labels="label" :id="id" v-if="nCard == -1"></NewCard>
-      <CardDetail v-if="nCard != -1" :label="label" :card="mockData.data[nCard]" :background="cardColor[nCard]"></CardDetail>
+      <CardDetail v-if="nCard !== -1" :label="label" :card="mockData.data[nCard]" :background="cardColor[nCard]"></CardDetail>
     </YkModal>
   </div>
 

@@ -5,8 +5,8 @@
       <p class="logo-name">WCORP</p>
     </div>
     <div class="menu">
-      <YkButton :size="'base'" class="message-wall">留言墙</YkButton>
-      <YkButton :size="'base'">加入我们</YkButton>
+      <YkButton :size="'base'" class="message-wall" @click="$router.push('/home')">留言墙</YkButton>
+      <YkButton :size="'base'" @click="$router.push('/home/join')">加入我们</YkButton>
     </div>
     <div class="user">
       <div class="user-head"></div>

@@ -91,13 +91,12 @@ const changeLabel = function(e) {
 }
 .footBtn {
   padding: 20px 0 0 0;
-  position: fixed;
-  right: 0;
+  float: right;
 }
 .submit {
   width: 175px;
   background-color: #333;
   color: white;
-  margin: 0 20px 0 20px;
+  margin: 0 0 0 20px;
 }
 </style>

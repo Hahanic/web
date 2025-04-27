@@ -1,23 +1,27 @@
 <template>
   <div class="card-detail">
+    <!-- 顶部两个fixed的东西 -->
     <div class="top-bt">
       <p class="revoke">联系墙主撕掉标签</p>
       <p class="report">举报</p>
     </div>
-    <NoteCard class="cardshow" :item="card" :label="label" :width="320" :background="background"></NoteCard>
+    <!-- card -->
+    <NoteCard class="cardshow" :item="card" :label="label" :width="320" :background="background" :isDetail="isDetail"></NoteCard>
+    <!-- 表单 也就是写评论 -->
     <div class="form">
+      <!-- 文本框 -->
       <textarea class="message" placeholder="评论"></textarea>
+      <!-- 名字和按钮 -->
       <div class="btn">
         <input type="text" class="name" placeholder="姓名">
         <YkButton size="small">确定</YkButton>
       </div>
     </div>
     <!-- 评论列表 -->
-    <!-- <p class="comment">评论{{ card.comment }}</p> -->
     <div class="comments">
       <div class="comment-li" v-for="(e,index) in mockComment.data" :key="index">
         <!-- 头像 -->
-        <div class="user-head"></div>
+        <div class="user-head" :style="{ backgroundImage: cardColor[e.imgURL]}"></div>
         <!-- 主要内容 -->
         <div class="comm-m">
           <!-- 上 -->
@@ -34,10 +38,12 @@
 </template>
 
 <script setup>
+import { ref } from 'vue';
 import NoteCard from './NoteCard.vue';
 import YkButton from './YkButton.vue';
 import { mockComment } from '@/Mock';
 import { cardColor } from '@/utils/data';
+//头像的颜色
 defineProps({
   card: {
     type: {}
@@ -49,6 +55,7 @@ defineProps({
     type: String
   }
 })
+const isDetail = ref(true)
 </script>
 
 <style scope>
@@ -65,11 +72,15 @@ defineProps({
   margin-right: 20px;
 }
 .cardshow {
-  height: 300px;
+  min-height: 300px;
+  user-select: text;
+  overflow-y: scroll;
 }
 .form {
   margin-top: 20px;
   width: 100%;
+  display: flex;
+  flex-direction: column;
 }
 .form .message {
   background: none;
@@ -78,12 +89,18 @@ defineProps({
   overflow-y: scroll;
   min-height: 142px;
   width: 100%;
+  font-size: 18px;
 }
 .form .name {
   margin-top: 20px;
   background: none;
   border: none;
   font-size: 14px;
+}
+.btn {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
 }
 .comments {
   display: flex;
