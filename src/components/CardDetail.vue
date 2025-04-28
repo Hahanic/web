@@ -10,7 +10,7 @@
     <!-- 表单 也就是写评论 -->
     <div class="form">
       <!-- 文本框 -->
-      <textarea class="message" placeholder="评论"></textarea>
+      <textarea class="message" placeholder="请输入..."></textarea>
       <!-- 名字和按钮 -->
       <div class="btn">
         <input type="text" class="name" placeholder="姓名">
@@ -58,7 +58,7 @@ defineProps({
 const isDetail = ref(true)
 </script>
 
-<style scope>
+<style scoped>
 .card-detail {
   position: relative;
 }
@@ -113,5 +113,10 @@ const isDetail = ref(true)
   height: 30px;
   background-color: aliceblue;
   border-radius: 50%;
+}
+.comm-m {
+  font-size: 16px;
+  cursor:default;
+  user-select: text;
 }
 </style>

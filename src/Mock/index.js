@@ -16,6 +16,19 @@ const mockData = mock.mock({
   }]
 })
 
+export const mockPhoto = mock.mock({
+  "data|9": [{
+    "moment": "@datetime",
+    "id|+1": 1,
+    "userId|+1" : 10,
+    "label|0-10": 0,
+    "name": "@cname",
+    "like|0-120" : 0,
+    "comment|0-120": 0,
+    "imgURL|1-12": 12,
+  }]
+})
+
 export const mockComment = mock.mock({
   "data|20": [{
     "moment": "@datetime",

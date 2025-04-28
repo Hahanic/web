@@ -97,7 +97,7 @@ const addCard = function() {
 }
 </script>
 
-<style scope>
+<style scoped>
 .wall-message {
   width: 100%;
   padding-top: 52px;

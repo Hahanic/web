@@ -6,7 +6,7 @@
 
 </script>
 
-<style scope>
+<style scoped>
 .foot-bar {
   width: 100%;
   height: 400px;

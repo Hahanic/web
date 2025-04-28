@@ -46,7 +46,7 @@ defineProps({
 })
 </script>
 
-<style scope>
+<style scoped>
 .note-card {
   min-height: 240px;
   margin-top: 20px;
@@ -88,7 +88,6 @@ defineProps({
   letter-spacing: 1.2px; /* 字符间隔1px */
   font-size: 16px;
   line-height: 22px;
-  cursor: pointer;
   flex-grow: 1;
 }
 .foot-left {
