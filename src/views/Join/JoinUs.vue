@@ -10,22 +10,43 @@
     </div>
     <!-- 在这里写图片 -->
     <div class="photo-contain">
-      <PhotoCard></PhotoCard>
+      <PhotoCard @openCard="open"></PhotoCard>
     </div>
     <!-- add按钮 -->
-    <div @click="addCard" class="add" :style="{ bottom: addBottom + 'px' }">
+    <div @click="changeModal" class="add" :style="{ bottom: addBottom + 'px' }">
       <img src="../../assets/icons/tianjia.svg">
     </div>
     <!-- 弹窗 -->
+    <YkModal @close="changeModal" :isModal="isModal" :title="title">
+    </YkModal>
+    <!-- 大图弹窗 -->
+    <YkViewer :isModal="isModal" :imgData="imgData" v-if="isOpen" @closeCard="close"></YkViewer>
   </div>
-
 </template>
 
 <script setup>
 import { onUnmounted, ref } from 'vue';
 import { wallType, label } from '@/utils/data';
 import PhotoCard from '../../components/PhotoCard.vue';
+import YkModal from '@/components/YkModal.vue'; 
+import YkViewer from '@/components/YkViewer.vue';
 
+const isModal = ref(false)
+const title = ref("照片留言")
+const changeModal = function() {
+  isModal.value = !isModal.value
+}
+
+const imgData = ref({})
+const isOpen = ref(false)
+const open = function(e) {
+  imgData.value = e
+  isOpen.value = true
+  console.log(imgData.value)
+}
+const close = function() {
+  isOpen.value = false
+}
 //id表示 留言墙 or 照片墙
 const id = ref(1);
 
@@ -97,6 +118,7 @@ onUnmounted(() => {
   position: fixed;
   right: 30px;
   display: flex;
+  z-index: 999;
 }
 .photo-contain {
   columns: 5;

@@ -1,7 +1,7 @@
 <template>
   <div class="yk-photo-card" v-for="(e, index) in mockPhoto.data" :key="index">
     <img class="photo-card" :src="`/src/static/${e.imgURL}.jpg`">
-    <div class="photo-bg"></div>
+    <div class="photo-bg" @click="emit('openCard', e)"></div>
     <div class="photo-like">
       <span class="card-like"></span>
       <span>{{ e.like }}</span>
@@ -11,6 +11,8 @@
 
 <script setup>
 import { mockPhoto } from '../Mock/index.js'
+
+const emit = defineEmits(['openCard'])
 </script>
 
 <style scoped>
