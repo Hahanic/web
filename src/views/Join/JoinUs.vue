@@ -20,7 +20,7 @@
     <YkModal @close="changeModal" :isModal="isModal" :title="title">
     </YkModal>
     <!-- 大图弹窗 -->
-    <YkViewer :isModal="isModal" :imgData="imgData" v-if="isOpen" @closeCard="close"></YkViewer>
+    <YkViewer :isModal="isModal" v-if="isOpen" @closeCard="close"></YkViewer>
   </div>
 </template>
 
@@ -30,6 +30,9 @@ import { wallType, label } from '@/utils/data';
 import PhotoCard from '../../components/PhotoCard.vue';
 import YkModal from '@/components/YkModal.vue'; 
 import YkViewer from '@/components/YkViewer.vue';
+//当前imgindex
+import useimgStore from '@/stores/imgList.js'
+const img = useimgStore()
 
 const isModal = ref(false)
 const title = ref("照片留言")
@@ -37,12 +40,10 @@ const changeModal = function() {
   isModal.value = !isModal.value
 }
 
-const imgData = ref({})
 const isOpen = ref(false)
 const open = function(e) {
-  imgData.value = e
+  img.currentImg = e
   isOpen.value = true
-  console.log(imgData.value)
 }
 const close = function() {
   isOpen.value = false

@@ -4,28 +4,57 @@
     <div class="bg"></div>
     <!-- 照片容器 -->
     <div class="viewer-photo" :style="{ paddingRight: isModal ? '362px' : '0px'}" @click="emit('closeCard')">
-      <img :src="`/src/static/${imgData.imgURL}.jpg`">
+      <img :src="`/src/static/${img.currentImg.imgURL}.jpg`">
     </div>
     <!-- 按钮 -->
-    <div class="switch sw-left">
+    <div class="switch sw-left" @click="nextimg(-1)">
       <span>Left</span>
     </div>
-    <div class="switch sw-right" :style="{ right: isModal ? '382px' : '20px' }">
+    <div class="switch sw-right" @click="nextimg(1)" :style="{ right: isModal ? '382px' : '20px' }">
       <span>Right</span>
     </div>
   </div>
 </template>
 
 <script setup>
+import useimgStore from '@/stores/imgList.js'
+const img = useimgStore()
 defineProps({
   isModal: {
     type: Boolean
   },
-  imgData: {
-    type: Object
-  }
 })
 const emit = defineEmits(['closeCard'])
+
+const nextimg = function (e) {
+  const photos = img.mockPhoto.data
+  const currentIndex = photos.findIndex(el => el.id === img.currentImg.id)
+
+  let nextIndex
+  if (e > 0) {
+    nextIndex = (currentIndex + 1) % photos.length
+  } else {
+    nextIndex = (currentIndex - 1 + photos.length) % photos.length
+  }
+
+  img.currentImg = photos[nextIndex]
+}
+
+// const nextimg = function(e){
+//   if(e > 0) {
+//     if(img.mockPhoto.data.length > img.currentImg.id) {
+//       img.currentImg = img.mockPhoto.data.find(el => el.id === img.currentImg.id + 1)
+//     } else {
+//       return img.currentImg = img.mockPhoto.data[0]
+//     }
+//   } else {
+//     if(img.currentImg.id > 1) {
+//       img.currentImg = img.mockPhoto.data.find(el => el.id === img.currentImg.id - 1)
+//     } else {
+//       return img.currentImg = img.mockPhoto.data[img.mockPhoto.data.length - 1]
+//     }
+//   }
+// }
 </script>
 
 <style scoped>
@@ -66,12 +95,12 @@ const emit = defineEmits(['closeCard'])
   width: 56px;
   height: 56px;
   border-radius: 50%;
-  background-color: rgba(0,0,0,0.7);
+  background-color: rgba(0,0,0,0.4);
   position: absolute;
   top: 0;
   bottom: 0;
   margin: auto;
-  font-size: 24px;
+  font-size: 18px;
   display: flex;
   align-items: center;
   justify-content: center;
