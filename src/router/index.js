@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Home from "@/views/Home/index.vue"
+import Home from '@/views/Home/index.vue'
 import WallMessage from '@/views/WallMessage.vue'
 import JoinUs from '@/views/Join/JoinUs.vue'
 
@@ -20,16 +20,23 @@ const router = createRouter({
         {
           path: '',
           name: 'wallmessage',
-          component: WallMessage
+          component: WallMessage,
         },
         {
           path: 'join',
           name: 'join',
-          component: JoinUs
-        }
-      ]
+          component: JoinUs,
+        },
+      ],
     },
-
+    {
+      path: '/register',
+      component: () => import('@/views/register/index.vue'),
+    },
+    {
+      path: '/login',
+      component: () => import('@/views/login/index.vue'),
+    },
   ],
 })
 
