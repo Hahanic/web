@@ -9,21 +9,27 @@
       <YkButton :size="'base'" @click="$router.push('/home/join')">加入我们</YkButton>
     </div>
     <div class="user">
+      <!-- 点按显示下拉菜单 -->
       <div class="user-info" @click.stop="toggleDropdown">
+        <!-- 头像backgroundImage -->
         <div
           class="user-avatar"
           :style="{
             backgroundImage: userStore.userInfo.avatar
-              ? `url(${userStore.userInfo.avatar})`
+              ? `url(http://localhost:3000${userStore.userInfo.avatar})`
               : 'linear-gradient(180deg, #7be7ff 2%, #1e85e2)',
           }"
         >
+          <!-- 没有头像的话用username的第一个字（大写） -->
           <span v-if="!userStore.userInfo.avatar">{{
             userStore.userInfo.username?.charAt(0)?.toUpperCase()
           }}</span>
         </div>
+        <!-- 如果有登录（userStore.isLoggedIn === true）就显示username -->
         <span class="username" v-if="userStore.isLoggedIn">{{ userStore.userInfo.username }}</span>
+        <!-- // 下拉菜单 // -->
         <div class="dropdown-menu" v-if="showDropdown" v-click-outside="closeDropdown">
+          <!-- 如果没登录 userStore.isLoggedIn === false -->
           <template v-if="!userStore.isLoggedIn">
             <div class="dropdown-item" @click="navigateTo('/login')">
               <i class="icon-login"></i>登录
@@ -41,6 +47,7 @@
             </div>
           </template>
         </div>
+        <!-- ////// -->
       </div>
     </div>
   </div>
@@ -54,6 +61,7 @@ import { useUserStore } from '@/stores/user'
 
 const router = useRouter()
 const userStore = useUserStore()
+console.log(userStore.userInfo)
 const showDropdown = ref(false)
 
 const toggleDropdown = () => {

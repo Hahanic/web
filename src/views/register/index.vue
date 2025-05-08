@@ -46,21 +46,23 @@ const formData = reactive({
 
 const handleSubmit = async () => {
   try {
+    //加载中效果
     loading.value = true
+    //发送注册post
     const response = await axios.post('http://localhost:3000/register', formData, {
       headers: {
         'Content-Type': 'application/json',
       },
     })
+    //接收注册信息
     if (response.data.success) {
-      alert('注册成功！')
+      alert('注册成功')
       router.push('/login')
     } else {
       alert(response.data.message || '注册失败')
     }
   } catch (error) {
-    console.error('注册失败:', error)
-    alert(error.response?.data?.message || '注册失败，请稍后重试')
+    console.error('注册失败', error)
   } finally {
     loading.value = false
   }

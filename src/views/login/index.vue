@@ -70,17 +70,24 @@ onMounted(() => {
 
 const handleSubmit = async () => {
   try {
+    //设置登陆中的效果
     loading.value = true
+    //发送登录请求
     const response = await axios.post('http://localhost:3000/login', formData)
-    console.log(response)
+    console.log(response.data)
+    //如果登录成功
     if (response.data.success) {
-      // 使用 Pinia 存储用户信息
-      userStore.login(response.data.token, {
+      //用pinia存储登录信息
+      userStore.login({
         username: formData.username,
-        avatar: response.data.avatar || '',
+        avatar: response.data.user.avatar || '',
       })
+      // userStore.login(response.data.token, {
+      //   username: formData.username,
+      //   avatar: response.data.avatar || '',
+      // })
 
-      // 根据是否勾选记住密码来保存账号密码
+      //有没有勾选记住密码 在本地保存账号密码
       if (rememberPassword.value) {
         localStorage.setItem(
           'userCredentials',
@@ -91,17 +98,13 @@ const handleSubmit = async () => {
           }),
         )
       } else {
-        // 如果未勾选记住密码，则清除保存的账号密码
         localStorage.removeItem('userCredentials')
       }
-
+      //然后就跳转首页了
       router.push('/home')
     } else {
-      alert(response.data.message || '登录失败')
+      alert(response.data.message || '登陆失败')
     }
-  } catch (error) {
-    console.error('登录失败:', error)
-    alert(error.response?.data?.message || '登录失败，请稍后重试')
   } finally {
     loading.value = false
   }

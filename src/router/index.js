@@ -37,6 +37,12 @@ const router = createRouter({
       path: '/login',
       component: () => import('@/views/login/index.vue'),
     },
+    // ✅ 兜底404页面
+    {
+      path: '/:pathMatch(.*)*',
+      name: 'NotFound',
+      component: () => import('@/views/NotFound.vue'),
+    },
   ],
 })
 
