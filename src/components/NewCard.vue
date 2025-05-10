@@ -2,51 +2,88 @@
   <div class="new-card">
     <!-- 颜色列表 -->
     <ul class="colors">
-      <li v-for="(item, index) in cardColor" :key="index" :style="{ background: item, width: '30px', height: '30px' }" :class="{ colorselected: selectColor == index }" @click="changeColor(index)"></li>
+      <li
+        v-for="(item, index) in cardColor"
+        :key="index"
+        :style="{ background: item, width: '30px', height: '30px' }"
+        :class="{ colorselected: selectColor == index }"
+        @click="changeColor(index)"
+      ></li>
     </ul>
     <!-- 文本框 -->
     <div class="card-main" :style="{ background: cardColor[selectColor] }">
-      <textarea class="card-message" placeholder="留言..." ></textarea>
-      <input class="card-name" type="text" placeholder="签名">
+      <textarea v-model="content" class="card-message" placeholder="留言..."></textarea>
+      <input v-model="sign" class="card-name" type="text" placeholder="签名" />
     </div>
     <!-- 标签列表 -->
-    <ul class="colors" style="margin-top: 40px;">
-      <li v-for="(item, index) in labels[id]" :key="index" :class="{ labelselected: selectLabel == index }" @click="changeLabel(index)">{{ item }}</li>
+    <ul class="colors" style="margin-top: 40px">
+      <li
+        v-for="(item, index) in labels[id]"
+        :key="index"
+        :class="{ labelselected: selectLabel == index }"
+        @click="changeLabel(index)"
+      >
+        {{ item }}
+      </li>
     </ul>
     <div class="footBtn">
       <YkButton size="max">丢弃</YkButton>
-      <YkButton size="max" class="submit">确定</YkButton>
+      <YkButton size="max" class="submit" @click="createPost">确定</YkButton>
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref } from 'vue';
-import { cardColor } from '@/utils/data';
-import YkButton from './YkButton.vue';
-
+import { ref } from 'vue'
+import { cardColor } from '@/utils/data'
+import YkButton from './YkButton.vue'
+import axios from 'axios'
 defineProps({
   labels: {
-    type: Array
+    type: Array,
   },
   id: {
-    type: Number
-  }
+    type: Number,
+  },
 })
 
 //更改选择颜色 标签
 const selectColor = ref(0)
 const selectLabel = ref(0)
-
-const changeColor = function(e) {
+const changeColor = function (e) {
   selectColor.value = e
 }
-
-const changeLabel = function(e) {
+const changeLabel = function (e) {
   selectLabel.value = e
 }
-//
-
+//获取账号id
+import { useUserStore } from '@/stores/user'
+const userstore = useUserStore()
+import { usepostStore } from '@/stores/postList'
+const postStore = usepostStore()
+//创建留言
+const content = ref('')
+const sign = ref('')
+const createPost = async () => {
+  if (!userstore.isLoggedIn) {
+    return alert('还请先登录^_^')
+  }
+  await axios
+    .post('http://localhost:3000/posts', {
+      content: content.value,
+      id: userstore.userInfo.id,
+      imgURL: selectColor.value,
+      label: selectLabel.value,
+      sign: sign.value,
+    })
+    .then((e) => {
+      if (e.status == 201) {
+        console.log('新建留言成功了喵~')
+        postStore.getPostlist()
+        alert('新建留言成功了喵~')
+      }
+    })
+}
 </script>
 
 <style scoped>

@@ -74,12 +74,12 @@ const handleSubmit = async () => {
     loading.value = true
     //发送登录请求
     const response = await axios.post('http://localhost:3000/login', formData)
-    console.log(response.data)
     //如果登录成功
     if (response.data.success) {
       //用pinia存储登录信息
       userStore.login({
         username: formData.username,
+        id: response.data.user.id,
         avatar: response.data.user.avatar || '',
       })
       // userStore.login(response.data.token, {

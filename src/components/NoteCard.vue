@@ -1,48 +1,55 @@
 <template>
-  <div :class="{ 'note-card': !isDetail, 'note-card-detail': isDetail }" :style="{width: `${width}px`, background: background}">
+  <div
+    :class="{ 'note-card': !isDetail, 'note-card-detail': isDetail }"
+    :style="{ width: `${width}px`, background: background }"
+  >
     <!-- 顶部日期和标签 -->
     <div class="card-top">
-      <p class="card-time">{{ item.moment }}</p>
+      <p class="card-time">{{ item.createdAt }}</p>
       <p class="card-label">{{ label[item.type][item.label] }}</p>
     </div>
     <!-- 主要文本 -->
-    <p :class="{ 'card-message': !isDetail, 'detail-message': isDetail }">{{ item.message }}</p>
+    <p :class="{ 'card-message': !isDetail, 'detail-message': isDetail }">{{ item.content }}</p>
     <!-- 底部点赞数和评论数 lz姓名 -->
-    <div :style="{width: `${width - 45}px`}" :class="{ 'card-foot': !isDetail, 'detail-foot': isDetail }">
+    <div
+      :style="{ width: `${width - 45}px` }"
+      :class="{ 'card-foot': !isDetail, 'detail-foot': isDetail }"
+    >
       <div class="foot-left">
         <!-- 点赞 -->
-        <span class="card-like"></span>
-        <span>{{ item.like }}</span>
+        <div @click.stop="() => console.log(1)">
+          <span class="card-like"></span> <span>{{ item.likes }}</span>
+        </div>
+
         <!-- 评论 -->
-        <span class="card-liuyan"></span>
-        <span>{{ item.comment }}</span>
+        <div @click.stop="() => console.log(2)">
+          <span class="card-liuyan"></span> <span>{{ item.commentsCount }}</span>
+        </div>
       </div>
       <!-- lz姓名 -->
-      <span class="foot-right">{{ item.name }}</span>
+      <span class="foot-right">{{ item.author.username }}</span>
     </div>
   </div>
-
 </template>
 
 <script setup>
-
 defineProps({
   width: {
-    default: 288
+    default: 288,
   },
   background: {
-    default: 'rgba(252,175,162,0.3)'
+    default: 'rgba(252,175,162,0.3)',
   },
   item: {
-    type: Array
+    type: Object,
   },
   label: {
-    type: Array
+    type: Array,
   },
   isDetail: {
     type: Boolean,
-    default: false
-  }
+    default: false,
+  },
 })
 </script>
 

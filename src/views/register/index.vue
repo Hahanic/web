@@ -54,7 +54,7 @@ const handleSubmit = async () => {
         'Content-Type': 'application/json',
       },
     })
-    //接收注册信息
+    //接收注册信息 如果返回的状态码是4xx不是2xx会直接被catch处理 所以else没必要
     if (response.data.success) {
       alert('注册成功')
       router.push('/login')
@@ -62,6 +62,7 @@ const handleSubmit = async () => {
       alert(response.data.message || '注册失败')
     }
   } catch (error) {
+    alert(error.response.data.message || '注册失败')
     console.error('注册失败', error)
   } finally {
     loading.value = false

@@ -61,7 +61,6 @@ import { useUserStore } from '@/stores/user'
 
 const router = useRouter()
 const userStore = useUserStore()
-console.log(userStore.userInfo)
 const showDropdown = ref(false)
 
 const toggleDropdown = () => {
