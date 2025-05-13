@@ -17,7 +17,7 @@
     >
       <div class="foot-left">
         <!-- 点赞 -->
-        <div @click.stop="() => console.log(1)">
+        <div @click.stop="like(item)">
           <span class="card-like"></span> <span>{{ item.likes }}</span>
         </div>
 
@@ -33,6 +33,11 @@
 </template>
 
 <script setup>
+import axios from 'axios'
+import { useUserStore } from '@/stores/user'
+import { usepostStore } from '@/stores/postList'
+const userStore = useUserStore()
+const postStore = usepostStore()
 defineProps({
   width: {
     default: 288,
@@ -51,6 +56,23 @@ defineProps({
     default: false,
   },
 })
+
+//点赞
+const like = async function async(e) {
+  if (!userStore.isLoggedIn) return alert('还没登录喵')
+  console.log('帖子id', e._id)
+  console.log('用户', userStore.userInfo.id)
+  console.log(postStore.postList)
+  await axios
+    .post('http://localhost:3000/posts/like', {
+      userId: userStore.userInfo.id,
+      postId: e._id,
+    })
+    .then(() => {
+      // 更新本地该帖子的点赞数（+1 或 -1，具体看后端逻辑）
+      postStore.getPostlist()
+    })
+}
 </script>
 
 <style scoped>

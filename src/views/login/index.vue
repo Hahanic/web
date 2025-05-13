@@ -75,11 +75,16 @@ const handleSubmit = async () => {
     //发送登录请求
     const response = await axios.post('http://localhost:3000/login', formData)
     //如果登录成功
+    console.log(response)
     if (response.data.success) {
       //用pinia存储登录信息
       userStore.login({
         username: formData.username,
         id: response.data.user.id,
+        myPosts: response.data.user.myPosts,
+        myComments: response.data.user.myComments,
+        myLikedPosts: response.data.user.myLikedPosts,
+        myLikedComments: response.data.user.myLikedComments,
         avatar: response.data.user.avatar || '',
       })
       // userStore.login(response.data.token, {

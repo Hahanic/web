@@ -1,48 +1,31 @@
 <template>
-  <transition name="modal">
-    <div class="yk-modal" v-if="isModal">
-      <div class="yk-modal-head">
-        <p class="modal-name">{{ title }}</p>
-        <span class="modal-x" @click="() => emit('close')"></span>
-      </div>
-      <div class="yk-modal-main">
-        <slot></slot>
-      </div>
+  <div class="yk-modal">
+    <div class="yk-modal-head">
+      <p class="modal-name">{{ title }}</p>
+      <span class="modal-x" @click="() => emit('close')"></span>
     </div>
-  </transition>
+    <div class="yk-modal-main">
+      <slot></slot>
+    </div>
+  </div>
 </template>
 
 <script setup>
 defineProps({
-  isModal: {
-    type: Boolean,
-    default: true
-  },
   title: {
-    type: String
-  }
+    type: String,
+  },
 })
 
 const emit = defineEmits(['close'])
 </script>
 
 <style scoped>
-.modal-enter-active, .modal-leave-active {
-  transition: all 0.4s ease-in-out;
-}
-.modal-enter-from, .modal-leave-to {
-  transform: translateX(360px);
-  opacity: 0;
-}
-.modal-enter-to, .modal-leave-from {
-  transform: translateX(0px);
-  opacity: 1;
-}
 .yk-modal {
   color: black;
   width: 362px;
   height: 100vh;
-  background-color: rgba(255,255,255,0.8);
+  background-color: rgba(255, 255, 255, 0.8);
   backdrop-filter: blur(10px);
   position: fixed;
   top: 52px;
@@ -65,10 +48,7 @@ const emit = defineEmits(['close'])
   background-repeat: no-repeat;
   cursor: pointer;
 }
-.yk-modal, .yk-modal-main {
+.yk-modal {
   overflow-y: scroll;
-}
-.yk-modal::-webkit-scrollbar {
-  display: none;
 }
 </style>

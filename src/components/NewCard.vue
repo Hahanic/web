@@ -62,9 +62,17 @@ const userstore = useUserStore()
 import { usepostStore } from '@/stores/postList'
 const postStore = usepostStore()
 //创建留言
+//留言
 const content = ref('')
+//签名
 const sign = ref('')
+//方法
 const createPost = async () => {
+  if (!content.value) {
+    return userstore.isLoggedIn
+      ? alert('诶！？好像什么都没写^_^')
+      : alert('诶！？你还没登录哦...而且什么都没写^_^')
+  }
   if (!userstore.isLoggedIn) {
     return alert('还请先登录^_^')
   }
@@ -80,6 +88,7 @@ const createPost = async () => {
       if (e.status == 201) {
         console.log('新建留言成功了喵~')
         postStore.getPostlist()
+        content.value = ''
         alert('新建留言成功了喵~')
       }
     })

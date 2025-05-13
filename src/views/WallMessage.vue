@@ -10,7 +10,7 @@
         :class="{ lbSelected: nlabel == index }"
         v-for="(e, index) in label[id]"
         :key="index"
-        @click="selectnote(index)"
+        @click="selectnote(index, e)"
       >
         {{ e }}
       </p>
@@ -19,7 +19,7 @@
     <div class="cards">
       <noteCard
         @click="selectcard(index)"
-        v-for="(e, index) in postStore.postList.posts"
+        v-for="(e, index) in postStore.postList"
         :key="index"
         :item="e"
         :label="label"
@@ -32,15 +32,12 @@
       <img src="../assets/icons/tianjia.svg" />
     </div>
     <!-- 弹窗 -->
-    <YkModal @close="changeModal" :isModal="isModal" :title="title">
-      <NewCard :labels="label" :id="id" v-if="nCard == -1"></NewCard>
-      <CardDetail
-        v-if="nCard !== -1"
-        :label="label"
-        :card="postStore.postList.posts[nCard]"
-        :background="cardColor[nCard]"
-      ></CardDetail>
-    </YkModal>
+    <transition name="modal">
+      <YkModal @close="changeModal" v-if="isModal" :isModal="isModal" :title="title">
+        <NewCard :labels="label" :id="id" v-if="nCard == -1"></NewCard>
+        <CardDetail v-else :label="label" :card="postStore.postList[nCard]"></CardDetail>
+      </YkModal>
+    </transition>
   </div>
 </template>
 
@@ -70,8 +67,12 @@ const id = ref(0)
 
 //点击label
 const nlabel = ref(0)
-const selectnote = function (e) {
-  nlabel.value = e
+const selectnote = function (index) {
+  if (index === 0) {
+    return (postStore.postList = postStore.postListTemp)
+  }
+  postStore.postList = postStore.postListTemp.filter((el) => el.label === index)
+  nlabel.value = index
 }
 
 //添加按钮默认高度
@@ -120,6 +121,20 @@ const addCard = function () {
 </script>
 
 <style scoped>
+.modal-enter-active,
+.modal-leave-active {
+  transition: all 0.4s ease-in-out;
+}
+.modal-enter-from,
+.modal-leave-to {
+  transform: translateX(360px);
+  opacity: 0;
+}
+.modal-enter-to,
+.modal-leave-from {
+  transform: translateX(0px);
+  opacity: 1;
+}
 .wall-message {
   width: 100%;
   padding-top: 52px;
